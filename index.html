@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wei Chu</title>
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+
+<body>
+  <div class="container">
+    <div class = "topnav">
+      <nav class = "subpagesMenu">
+        <div class="menu-icon" id="menu-icon">
+          &#9776; <!-- Unicode for the menu icon -->
+        </div>
+        <ul class="nav-links" id="nav-links">
+          <li><a class = "subpages" href="./index.html">Home</a></li>
+          <li><a class = "subpages" href="#" target="_blank">About</a></li>
+          <li><a class = "subpages" href="#" target="_blank">Works</a></li>
+          <li><a class = "subpages" href="#" target="_blank">Blogs</a></li>
+          <li><a class = "subpages" href="https://www.linkedin.com/in/wei-chu-2428563a?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B0NJxcN7wTTO%2FFzOhjPc2rg%3D%3D">LinkedIn</a></li>
+          <li><a class = "subpages" id = "email" href="mailto: weikai.chu.91@outlook.com" target="_blank">Email</a></li>
+        </ul>
+      </nav>
+      <!-- <a class = "siteName" href="#">[Wei Chu].Dev</a> -->
+      <!-- <div class = "subpagesMenu">
+        <a class = "subpages" id = "email" href="mailto: weikai.chu.91@outlook.com">| Email-Me |</a>
+        <a class = "subpages" href="#">LinkedIn</a>
+        <a class = "subpages" href="#">Blogs</a>
+        <a class = "subpages" href="#">Works</a>
+        <a class = "subpages" href="#">About</a>
+      </div> -->
+    </div>
+    <header class = "siteName" href="./index.html">
+      <h1>The DevFool Journal</h1>
+    </header>
+
+    <div class="siteMainTitle">
+      <h1> The<br>Dev<br>Fool<br>Journal</h1>
+      <p><b>This is a portfolio website showcasing my skills as well as my journey since stepped into DevOps world.</b>
+      </p>
+    </div>
+
+    <div class="siteManifest">
+      <quote>"Architecture is a reflection of society." <br>-- Henry Adams, Architect.
+      </quote>
+      <p>
+        To me,<br>DevOps Architecture,<br>Cloud Architecture,<br>Data Architecture,etc<br>are just like building architecture,<br>all are designed and evolved<br>in the way how we utilise them.
+      </p>
+      <a class="link-about-me" href="#">click to know me more >></a>
+    </div>
+
+    <div class="gradient-circle">
+      <p>
+        <canvas id="myCanvas" width= "600" height="600"></canvas>
+      </p>
+    </div>
+    <!-- <div>
+      <img src="./images/systems-devops-provision-svgrepo-com.svg" class="devops-icon">
+    </div> -->
+
+    <div class="myWorks_intro">
+      <section class="workintro-title">
+        <h1>My DevOps Journey</h1>
+        <h3>Recent Works</h3>
+        <hr/>
+      </section>
+      <div class="myWorks_menu">
+        <section>
+          <article class="work-example">
+            <div class="work-title">
+              <h2>Cloud Infrastructure</h2>
+            </div>
+            <p>Azure, gcp and aws. The multi-clouds solution and architecture.</p>
+            <div class="service-icon">
+              <img src="./images/aws-svgrepo-com.svg">
+              <img src="./images/azure-svgrepo-com.svg">
+              <img src="./images/gcp-svgrepo-com.svg">
+              <img src="./images/azure-aks-svgrepo-com.svg">
+            </div>
+            <div class="example-link">
+              <button id="openOverlayBtn">Veiw My Work >></button>
+              <div id="overlay1" class="overlay1">
+                <div class="overlay-content">
+                  <span class="closeBtn" onclick="closeOverlay1()">&times;</span>
+                  <br>
+                  <br>
+                  <span class="content-title">
+                    <h1 >Cloud Infrastructure</h1>
+                    <h5>Related Work Example</h5>
+                    <div class="tags">
+                      <button>Azure</button>
+                      <button>AWS</button>
+                      <button>GCP</button>
+                      <button>Terraform</button>
+                      <button>Github Action</button>
+                    </div>
+                  </span>
+                  <hr/>
+                  <span class="content-section">
+                    <article>
+                      <div class="works-order">
+                        <h2>01/</h2>
+                        <h4>13.10.2024</h4>
+                      </div>
+                      <div class="work-title">
+                        <h2>Deploying Resource Group using CI/CD with Terraform and Github Action</h2>
+                        <p>My reflection and take-away from the Openshift fundamental training.</p>
+                      </div>
+                      <a class="read-works" href="./works-pages/terraform-rg/terraform_rg.html" target="_blank">Read More >></a>
+                    </article>
+                  </span>
+                  <hr/>
+                  <span class="content-section">
+                    <article>
+                      <div class="works-order">
+                        <h2>02/</h2>
+                        <h4>13.10.2024</h4>
+                      </div>
+                      <div class="work-title">
+                        <h2>Deploying Azure VM & Vnet using CI/CD with Terraform and Github Action</h2>
+                        <p>My reflection and take-away from the Openshift fundamental training.</p>
+                      </div>
+                    </article>
+                    <a class="read-works" href="#" target="_blank">Read More >></a>
+                  </span>
+                  <hr/>
+                  <span class="content-section">
+                    <article>
+                      <div class="works-order">
+                        <h2>03/</h2>
+                        <h4>13.10.2024</h4>
+                      </div>
+                      <div class="work-title">
+                        <h2>Configuring Azure SQL DB via Terraform & Github Action.</h2>
+                        <p>My reflection and take-away from the Openshift fundamental training.</p>
+                      </div>
+                    </article>
+                    <a class="read-works" href="#" target="_blank">Read More >></a>
+                  </span>
+                  <hr/>
+                  <span class="content-section">
+                    <article>
+                      <div class="works-order">
+                        <h2>04/</h2>
+                        <h4>13.10.2024</h4>
+                      </div>
+                      <div class="work-title">
+                        <h2>Managing AWS VM through Red Hat Ansible.</h2>
+                        <p>My reflection and take-away from the Openshift fundamental training.</p>
+                      </div>
+                    </article>
+                    <a class="read-works" href="#" target="_blank">Read More >></a>
+                  </span>
+                  <br>
+                  <!-- the end of the works page. -->
+                  <div class="all-works">
+                    <a href="#" target="_blank">Veiw All My Works >></a>
+                  </div>
+              </div>
+            </div>
+            </div>
+          </article>
+
+          <article class="work-example">
+            <div class="work-title">
+              <h2>Automation CI/CD Pipelines</h2>
+            </div>
+            <p>Azure, gcp and aws. The multi-clouds solution and architecture.</p>
+            <div class="service-icon">
+              <img src="./images/terraform-svgrepo-com.svg">
+              <img src="./images/github-142-svgrepo-com.svg">
+              <img src="./images/ansible-svgrepo-com.svg">
+              <img src="./images/azure-devops-svgrepo-com.svg">
+            </div>
+            <div class="example-link">
+              <button id="openOverlayBtn2">Veiw example work >></button>
+              <div id="overlay" class="overlay2">
+                <div class="overlay-content">
+                  <span class="closeBtn" onclick="closeOverlay2()">&times;</span>
+                  <br>
+                  <br>
+                  <span class="content-title">
+                    <h1 >using Terraform & Gitugaction to deploy RG and VM</h1>
+                  </span>
+                  <span class="content-section">
+                    <h2>Step 01 | Setting up Service Princple</h2>
+                    <p class="note">
+                      logging into the Azure portal and sign in with your user credential.
+                    </p>
+                    <p class="code">
+                      <code>
+                        ctx.fillStyle = 'rgba(0, 0, 255, 1)'; // Set the fill color (blue with 50% opacity)
+                        ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
+                        
+                        
+                        document.getElementById('openOverlayBtn').onclick = function() {
+                        document.getElementById('overlay').style.display = 'flex';
+                        };
+                        
+                        function closeOverlay() {
+                        document.getElementById('overlay').style.display = 'none';
+                        }
+                      </code>
+                    </p>
+                    <br>
+                    <h2>Step 02 | Setting up Service Princple</h2>
+                    <p class="note">
+                      logging into the Azure portal and sign in with your user credential.
+                    </p>
+                    <p class="code">
+                      <code>
+                        ctx.fillStyle = 'rgba(0, 0, 255, 1)'; // Set the fill color (blue with 50% opacity)
+                        ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
+                        
+                        
+                        document.getElementById('openOverlayBtn').onclick = function() {
+                        document.getElementById('overlay').style.display = 'flex';
+                        };
+                        
+                        function closeOverlay() {
+                        document.getElementById('overlay').style.display = 'none';
+                        }
+                      </code>
+                    </p>
+                  </span>
+                  <br>
+                  <p>This is the overlay content. It can include links, images, or any other HTML elements.</p>
+                  <a href="https://example.com">Visit Example.com</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="work-example">
+            <div class="work-title">
+              <h2>API Creation & Testing</h2>
+            </div>
+            <p>Azure, gcp and aws. The multi-clouds solution and architecture.</p>
+            <div class="service-icon">
+              <img src="./images/postman-svgrepo-com.svg">
+              <img src="./images/database-svgrepo-com.svg">
+              <img src="./images/python-svgrepo-com.svg">
+            </div>
+            <div class="example-link">
+              <button id="openOverlayBtn3">Veiw example work >></button>
+              <div id="overlay3" class="overlay3">
+                <div class="overlay-content">
+                  <span class="closeBtn" onclick="closeOverlay3()">&times;</span>
+                  <br>
+                  <br>
+                  <span class="content-title">
+                    <h1 >using Terraform & Gitugaction to deploy RG and VM</h1>
+                  </span>
+                  <span class="content-section">
+                    <h2>Step 01 | Setting up Service Princple</h2>
+                    <p class="note">
+                      logging into the Azure portal and sign in with your user credential.
+                    </p>
+                    <p class="code">
+                      <code>
+                        ctx.fillStyle = 'rgba(0, 0, 255, 1)'; // Set the fill color (blue with 50% opacity)
+                        ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
+                        
+                        
+                        document.getElementById('openOverlayBtn').onclick = function() {
+                        document.getElementById('overlay').style.display = 'flex';
+                        };
+                        
+                        function closeOverlay() {
+                        document.getElementById('overlay').style.display = 'none';
+                        }
+                      </code>
+                    </p>
+                    <br>
+                    <h2>Step 02 | Setting up Service Princple</h2>
+                    <p class="note">
+                      logging into the Azure portal and sign in with your user credential.
+                    </p>
+                    <p class="code">
+                      <code>
+                        ctx.fillStyle = 'rgba(0, 0, 255, 1)'; // Set the fill color (blue with 50% opacity)
+                        ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
+                        
+                        
+                        document.getElementById('openOverlayBtn').onclick = function() {
+                        document.getElementById('overlay').style.display = 'flex';
+                        };
+                        
+                        function closeOverlay() {
+                        document.getElementById('overlay').style.display = 'none';
+                        }
+                      </code>
+                    </p>
+                  </span>
+                  <br>
+                  <p>This is the overlay content. It can include links, images, or any other HTML elements.</p>
+                  <a href="https://example.com">Visit Example.com</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="work-example">
+            <div class="work-title">
+              <h2>Full-stack Development</h2>
+            </div>
+            <p>Azure, gcp and aws. The multi-clouds solution and architecture.</p>
+            <div class="service-icon">
+              <img src="./images/javascript-svgrepo-com.svg">
+              <img src="./images/mongodb-svgrepo-com.svg">
+              <img src="./images/postman-svgrepo-com.svg">
+              <img src="./images/nodejs-svgrepo-com.svg">
+            </div>
+            <div class="example-link">
+              <button id="openOverlayBtn4">Veiw example work >></button>
+              <div id="overlay4" class="overlay4">
+                <div class="overlay-content">
+                  <span class="closeBtn" onclick="closeOverlay4()">&times;</span>
+                  <br>
+                  <br>
+                  <span class="content-title">
+                    <h1 >using Terraform & Gitugaction to deploy RG and VM</h1>
+                  </span>
+                  <span class="content-section">
+                    <h2>Step 01 | Setting up Service Princple</h2>
+                    <p class="note">
+                      logging into the Azure portal and sign in with your user credential.
+                    </p>
+                    <p class="code">
+                      <code>
+                        ctx.fillStyle = 'rgba(0, 0, 255, 1)'; // Set the fill color (blue with 50% opacity)
+                        ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
+                        
+                        
+                        document.getElementById('openOverlayBtn').onclick = function() {
+                        document.getElementById('overlay').style.display = 'flex';
+                        };
+                        
+                        function closeOverlay() {
+                        document.getElementById('overlay').style.display = 'none';
+                        }
+                      </code>
+                    </p>
+                    <br>
+                    <h2>Step 02 | Setting up Service Princple</h2>
+                    <p class="note">
+                      logging into the Azure portal and sign in with your user credential.
+                    </p>
+                    <p class="code">
+                      <code>
+                        ctx.fillStyle = 'rgba(0, 0, 255, 1)'; // Set the fill color (blue with 50% opacity)
+                        ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
+                        
+                        
+                        document.getElementById('openOverlayBtn').onclick = function() {
+                        document.getElementById('overlay').style.display = 'flex';
+                        };
+                        
+                        function closeOverlay() {
+                        document.getElementById('overlay').style.display = 'none';
+                        }
+                      </code>
+                    </p>
+                  </span>
+                  <br>
+                  <p>This is the overlay content. It can include links, images, or any other HTML elements.</p>
+                  <a href="https://example.com">Visit Example.com</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="work-example">
+            <div class="work-title">
+              <h2>Data Analytics</h2>
+            </div>
+            <p>Azure, gcp and aws. The multi-clouds solution and architecture.</p>
+            <div class="service-icon">
+              <img src="./images/tableau-svgrepo-com.svg">
+              <img src="./images/excel-file-svgrepo-com.svg">
+              <img src="./images/mysql-svgrepo-com.svg">
+              <img src="./images/python-svgrepo-com.svg">
+            </div>
+            <div class="example-link">
+              <button id="openOverlayBtn5">Veiw My Works >></button>
+              <div id="overlay5" class="overlay5">
+                <div class="overlay-content">
+                  <span class="closeBtn" onclick="closeOverlay5()">&times;</span>
+                  <br>
+                  <br>
+                  <span class="content-title">
+                    <h1 >Cloud Infrastructure</h1>
+                    <sub>Work Examples</sub>
+                  </span>
+                  <span class="content-section">
+                    <hr>
+                    <h2>Deploying Azure Resource Group using CI/CD with Terrafrom & Github Action</h2>
+                    <p class="note">
+                      logging into the Azure portal and sign in with your user credential.
+                    </p>
+                    <hr>
+
+                  </span>
+                  <div class="all-works">
+                    <a href="#">Veiw All My Works >></a>
+                  </div>
+            
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </section>
+      </div>
+    </div>
+    <section class="journals">
+      <h1>DevOps Journal</h1>
+      <h3>My latest blogs</h3>
+      <hr/>
+    </section>
+    <div class="articles">
+      <section>
+        <article>
+          <div class="blogs-order">
+            <h2>01/</h2>
+            <h4>13.10.2024</h4>
+          </div>
+          <div class="blogs-title">
+            <h2>Openshift is Civil engineering on Steroid!</h2>
+            <p>My reflection and take-away from the Openshift fundamental training.</p>
+            <!-- <a class="read-more" href="#" target="_blank">Read More >></a> -->
+            <h4 class="coming-soon" >Comming Soon</h4>
+          </div>
+        </article>
+
+        <hr class="dashed-line">
+        
+        <article>
+          <div class="blogs-order">
+            <h2>02/</h2>
+            <h4>13.10.2024</h4>
+          </div>
+          <div class="blogs-title">
+            <h2>Take-Away After Passing Microsoft AZ-900 Power Platform Fundamental</h2>
+            <p>My reflection and take-away from the Openshift fundamental training.</p>
+            <!-- <a class="read-more" href="#" target="_blank">Read More >></a> -->
+            <h4 class="coming-soon" >Comming Soon</h4>
+          </div>
+        </article>
+        <hr class="dashed-line">
+        <article>
+          <div class="blogs-order">
+            <h2>03/</h2>
+            <h4>13.10.2024</h4>
+          </div>
+          <div class="blogs-title">
+            <h2>Take-Away After Passing Microsoft PL-900 Power Platform Fundamental</h2>
+            <p>My reflection and take-away from the Openshift fundamental training.</p>
+            <!-- <a class="read-more" href="#" target="_blank">Read More >></a> -->
+            <h4 class="coming-soon" >Comming Soon</h4>
+          </div>
+        </article>
+        <hr class="dashed-line">
+        <article>
+          <div class="blogs-order">
+            <h2>04/</h2>
+            <h4>13.10.2024</h4>
+          </div>
+          <div class="blogs-title">
+            <h2>Take-Away After Passing Microsoft MS-900 Power Platform Fundamental</h2>
+            <p>My reflection and take-away from the Openshift fundamental training.</p>
+            <!-- <a class="read-more" href="#" target="_blank">Read More >></a> -->
+            <h4 class="coming-soon" >Comming Soon</h4>
+          </div>
+        </article>
+      </section>
+      <div class="All-Blogs">
+        <a href="#">To All the Blogs >></a>
+      </div>
+    </div>
+    <div class="recruitment">
+      <h2>Open to Work</h2>
+      <p>
+        esblnfjkawbjkfbesfjkbsdfdks;f;adksnblkjsbf;adknsf;ajklsdhfjk;hsd;asfjcns;kadjslbncfjkadsbvkhdsakjlvabsdjkc;asdjvbasdjk;asdijfioewfhiowehfnjnwekjfhioa;hfnodsfefhioehf'iwnf;owqeifhioeqwfnweoifnhq
+      </p>
+      <div class="to-linkedin">
+        <a href="https://www.linkedin.com/in/wei-chu-2428563a?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B0NJxcN7wTTO%2FFzOhjPc2rg%3D%3D" target="_blank">Veiw My LinkedIn >></a>
+      </div>
+    </div>
+    </div>
+    <div>
+      <hr>
+      <div class="footer">
+        <h3>The Dev Fool Journal</h3>
+        <p>
+          <a class = "subpages" href="./index.html">Home</a>
+          <a class = "subpages" href="#" target="_blank">About</a>
+          <a class = "subpages" href="#" target="_blank">Works</a>
+          <a class = "subpages" href="#" target="_blank">Blogs</a>
+          <a class = "subpages" href="https://www.linkedin.com/in/wei-chu-2428563a?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B0NJxcN7wTTO%2FFzOhjPc2rg%3D%3D">LinkedIn</a>
+          <a class = "subpages" id = "email" href="mailto: weikai.chu.91@outlook.com" target="_blank">Email-Me</a>
+        </p>
+      </div>
+    </div>
+
+  <div style="padding-left: 16px;"></div>
+</div>
+
+</body>
+<script src="script.js"></script>
+<!-- <script src="comments.js"></script> -->
+</html>

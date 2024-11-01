@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Infra.</title>
+    <link rel="stylesheet" href="../works-pages.css">
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class = "topnav">
+            <nav class = "subpagesMenu">
+                <div class="menu-icon" id="menu-icon">
+                    &#9776; <!-- Unicode for the menu icon -->
+                </div>
+                <ul class="nav-links" id="nav-links">
+                    <li><a class = "subpages" href="../../index.html" id="home">Home</a></li>
+                    <li><a class = "subpages" href="#" target="_blank" id="about">About</a></li>
+                    <li><a class = "subpages" href="#" target="_blank" id="works">Works</a></li>
+                    <li><a class = "subpages" href="#" target="_blank" id="blogs">Blogs</a></li>
+                    <li><a class = "subpages" href="https://www.linkedin.com/in/wei-chu-2428563a?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B0NJxcN7wTTO%2FFzOhjPc2rg%3D%3D" id="linkedin" target="_blank">LinkedIn</a></li>
+                    <li><a class = "subpages" id = "email" href="mailto: weikai.chu.91@outlook.com" target="_blank">Email</a></li>
+                    <li><button class = "subpages" onclick="location.href='#commentsSection'" id="commentButton">Comment</button></li>
+                    <li><button class = "subpages" onclick="location.href='#container'" id="backButton">&#8657</button></li>
+                </ul>
+                <div class="mobile-top-icon" id="mobile-top-icon">
+                    <button onclick="location.href='#container'">&#8657</button>
+                </div>
+            </nav>
+        </div>
+        <header class = "siteName" href="../../index.html">
+            <h1>The<br>DevFool<br>Journal</h1>
+        </header>
+        <!-- The end of the navigation bar section -->
+        
+        
+        <div class="content">
+            <div class="content-title" id="conetentBegin">
+                <h1 >Deploying Resource Group using CI/CD with Terraform and Github Action</h1>
+            </div>
+            <div class="tags">
+                <button>Azure</button>
+                <button>AWS</button>
+                <button>GCP</button>
+                <button>Terraform</button>
+                <button>Github Action</button>
+            </div>
+            
+            <div class="content-section">
+                <h2>Step 01 | Setting up Service Princple</h2>
+                <p class="note">
+                    In order to let <strong>GitHub Workflow</strong>  and <strong>Terraform</strong> to work with <strong>Azure Resource Management</strong>, the <code>CLIENT_ID</code>, <code>CLIENT_SECRET_VALUE</code>, <code>TENANT_ID</code> and <code>SUBSCRIPTION_ID</code> will have to be assigned in the workflow files. Therefore, setting up a <strong>Service Principle</strong> with a <strong>AZ Subscription</strong> assigned is the first step of the RG creation. The 2 methods I know of setting up the Service Principle is through <strong>EntraID App Registration</strong> & <strong>Azure Arc</strong>. I have tried the EntraID App registration with an Azure Enterprise Tenant and tried the Azure Arc with my personal Azure free account. Here I am demonstrating the later method:
+                </p>
+                <h3>1. Finding Azure Arc</h3>
+                <p class="note">
+                    Go to Azure Portal and find Azure Arc in the Azure services catalogue.
+                </p>
+                <img src="../terraform-rg/rg_images/image_edited-01.jpg" class="enlargeable-image" alt="finding azure arc">
+                <h3>2. Adding a Service Principle</h3>
+                <p class="note">
+                    After entering the Azure Arc page, navigate to Service Principle option under Management tab in the left Pane of the portal page. Click the “+Add” option.
+                </p>
+                <img src="../terraform-rg/rg_images/image 1_edited-01.jpg" class="enlargeable-image" alt="Service Principle page on azure portal">
+                <h3>3. Configuring The New Service Principle</h3>
+                <p class="note">
+                    After the Add New Azure Arc Service Principle (a.k.a SPN) comes up, filling the name of the SPN you like. Choosing Subscription for the scope assignment level as we are trying to create a Resource Group (RG), therefore we don’t have any resource group we would like to use yet. For the expiry date, I chose 3 months time for general reason.
+                </p>
+                <img src="../terraform-rg/rg_images/image 2_edited-01.jpg" class="enlargeable-image" alt="spn config page">
+                <h3>4. Finding the Credential Values</h3>
+                <p class="note">
+                    After creating the SPN, you will then have the <code>CLIENT_ID</code>, <code>CLIENT_SECRET_VALUE</code>, <code>TENANT_ID</code>(Manually creating one by clicking into the Client Credentials if Secret Value creation is not included in the SPN configuration process.)
+                </p>
+                <img src="../terraform-rg/rg_images/image 3_edited-01.jpg" class="enlargeable-image" alt="Image 6">
+                <h3>5. Finding the Subscription ID</h3>
+                <p class="note">
+                    For the Subscription, it will be found at the Subscription management page. 
+                </p>
+                <img src="../terraform-rg/rg_images/image 4_edited.jpg" class="enlargeable-image" alt="Image 6">
+                <img src="../terraform-rg/rg_images/image 5_edited-01.jpg" class="enlargeable-image" alt="Image 6">                
+                <br>
+                <!-- The end of the step 01 -->
+                <h2>Step 02 | Hiding the Azure User Credential in Github Secret</h2>
+                <h3>1. Hiding the SPN Values on GitHub</h3>
+                <p class="note">
+                    Go to the repository where I am storing my terrafrom and workflow files and have the 4 variables I need for interacting with Azure assigned as Secrets for Github Actions. 
+                </p>
+                <img src="../terraform-rg/rg_images/image 6.png" class="enlargeable-image" alt="Image 6">
+                <img src="../terraform-rg/rg_images/image 7.png" class="enlargeable-image" alt="Image 6">
+                <h3>2. Setting Up Automation workflow</h3>
+                <p class="note">
+                    Configuring the workflow file for triggering GitHub Action.
+                </p>
+                <p class="code-file">workflows.yml</p>
+                <pre class="code"><code>
+name: 'Terraform'
+
+on:
+    push:
+        branches: [ "main" ]
+    pull_request:
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+env:
+    ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+    ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET_VALUE }}
+    ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+
+jobs:
+    terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    environment: testing
+
+    <sub class="anno"># Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest</sub>
+    defaults:
+        run:
+        shell: bash
+
+    steps:
+    <sub class="anno"># Checkout the repository to the GitHub Actions runner</sub>
+    - name: Checkout
+        uses: actions/checkout@v4
+
+    <sub class="anno"># Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token</sub>
+    - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+    <sub class="anno"># Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.</sub>
+    - name: Terraform Init
+        run: terraform init
+
+    <sub class="anno">#Azure Environment Variables</sub>
+    - name: Set Azure credentials
+        run: |
+        echo "AZURE_CREDENTIALS={ \"clientId\": \"${{ secrets.AZURE_CLIENT_ID }}\", \"clientSecret\": \"${{ secrets.AZURE_CLIENT_SECRET_VALUE }}\", \"subscriptionId\": \"${{ secrets.AZURE_SUBSCRIPTION_ID }}\", \"tenantId\": \"${{ secrets.AZURE_TENANT_ID }}\" }" >> $GITHUB_ENV
+
+    - name: Azure Login
+        uses: azure/login@v1
+        with:
+        creds: ${{ env.AZURE_CREDENTIALS }}
+
+    <sub class="anno"># Checks that all Terraform configuration files adhere to a canonical format</sub>
+    - name: Terraform Format
+        run: terraform fmt
+
+    <sub class="anno"># Generates an execution plan for Terraform</sub>
+    - name: Terraform Plan
+        run: terraform plan -input=false
+
+        <sub class="anno"># On push to "main", build or change infrastructure according to Terraform configuration files</sub>
+        <sub class="anno"># Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks</sub>
+    - name: Terraform Apply
+        run: terraform apply -auto-approve -input=false
+                </code></pre>
+                <br>
+                <!-- The end of step 02 -->
+                <h2>Step 03 | Preparing Terraform files for Deploying Resource Group</h2>
+                <h3>1. Configuring the main terraform file</h3>
+                <p class="code-file">main.tf</p>
+                <pre class="code"><code>
+<sub class="anno"># Create a Resource Group (if it doesn’t exist)</sub>
+resource "azurerm_resource_group" "wcdev_tf_rg" {
+    name     = "weichudev_terraform_RG"
+    location = "UK South"
+}
+                </code></pre>
+                <h3>2. Configuring the terraform provider file</h3>
+                <p class="code-file">provider.tf</p>
+                <pre class="code"><code>
+provider "azurerm" {
+    features {}
+    resource_provider_registrations = "none"
+}
+
+<sub class="anno"># Set the Azure Provider source and version being used</sub>
+terraform {
+    required_version = ">= 0.14"
+
+    required_providers {
+        azurerm = {
+            source  = "hashicorp/azurerm"
+            version = ">= 3.0.0"
+        }
+    }
+}
+                </code></pre>
+                <br>
+                <h2>Step 04 | Run the GitHub Workflow</h2>
+                <p class="note">
+                    Commit & Sync the changes to the repository, the workflow will then be triggered.
+                </p>
+                <img src="../terraform-rg/rg_images/image 8.png" class="enlargeable-image" alt="Image 6">
+                <img src="../terraform-rg/rg_images/image 9.png" class="enlargeable-image" alt="Image 6">
+                <img src="../terraform-rg/rg_images/image 10_edited-01.jpg" class="enlargeable-image" alt="Image 6">
+                <!-- Modal structure -->
+                <div id="imageModal" class="modal">
+                    <span class="close">&times;</span>
+                    <img class="modal-content" id="modalImage">
+                </div>
+            </div>
+            <div class="troubleshooting-zone">
+                <h1>troubleshoot Notes</h1>
+                <hr/>
+                <h2>Issue 01 | Wrong Authentication Configuration</h2>
+                <p class="note">
+                    In order to let <strong>GitHub Workflow</strong>  and <strong>Terraform</strong> to work with <strong>Azure Resource Management</strong>, the <code>CLIENT_ID</code>, <code>CLIENT_SECRET_VALUE</code>, <code>TENANT_ID</code> and <code>SUBSCRIPTION_ID</code> will have to be assigned in the workflow files. Therefore, setting up a <strong>Service Principle</strong> with a <strong>AZ Subscription</strong> assigned is the first step of the RG creation. The 2 methods I know of setting up the Service Principle is through <strong>EntraID App Registration</strong> & <strong>Azure Arc</strong>. I have tried the EntraID App registration with an Azure Enterprise Tenant and tried the Azure Arc with my personal Azure free account. Here I am demonstrating the later method:
+                </p>
+                <h3>Error message from GitHub Action</h3>
+                <p class="note">
+                    Go to Azure Portal and find Azure Arc in the Azure services catalogue.
+                </p>
+                <img src="../terraform-rg/rg_images/image 11.png" class="enlargeable-image" alt="finding azure arc">
+                <h3>Solving Process</h3>
+                <p class="note">
+                    Go to Azure Portal and find Azure Arc in the Azure services catalogue.
+                </p>
+                <img src="../terraform-rg/rg_images/image 12_edited-01.jpg" class="enlargeable-image" alt="Image 6">
+                <img src="../terraform-rg/rg_images/image 13_edited-01.jpg" class="enlargeable-image" alt="Image 6">
+                <img src="../terraform-rg/rg_images/image 14-01.jpg" class="enlargeable-image" alt="Image 6">
+                <img src="../terraform-rg/rg_images/image 16_edited-01.jpg" class="enlargeable-image" alt="Image 6">
+                <!-- The end of issue 01 -->
+
+                <hr/>
+                <h2>Issue 02 | Wrong Authentication Configuration</h2>
+                <p class="note">
+                    In order to let <strong>GitHub Workflow</strong>  and <strong>Terraform</strong> to work with <strong>Azure Resource Management</strong>, the <code>CLIENT_ID</code>, <code>CLIENT_SECRET_VALUE</code>, <code>TENANT_ID</code> and <code>SUBSCRIPTION_ID</code> will have to be assigned in the workflow files. Therefore, setting up a <strong>Service Principle</strong> with a <strong>AZ Subscription</strong> assigned is the first step of the RG creation. The 2 methods I know of setting up the Service Principle is through <strong>EntraID App Registration</strong> & <strong>Azure Arc</strong>. I have tried the EntraID App registration with an Azure Enterprise Tenant and tried the Azure Arc with my personal Azure free account. Here I am demonstrating the later method:
+                </p>
+                <h3>Error message from GitHub Action</h3>
+                <p class="note">
+                    Go to Azure Portal and find Azure Arc in the Azure services catalogue.
+                </p>
+                <img src="../terraform-rg/rg_images/image 17.png" class="enlargeable-image" alt="finding azure arc">
+                <img src="../terraform-rg/rg_images/image 18.png" class="enlargeable-image" alt="Image 6">
+                <h3>Solving Process</h3>
+                <p class="note">
+                    Go to Azure Portal and find Azure Arc in the Azure services catalogue.
+                </p>
+                <p class="code-file">provider.tf</p>
+                <pre class="code"><code>
+provider "azurerm" {
+    features {}
+    resource_provider_registrations = "none"
+}
+
+# Set the Azure Provider source and version being used
+terraform {
+    required_version = ">= 0.14"
+
+    required_providers {
+        azurerm = {
+            source  = "hashicorp/azurerm"
+            version = ">= 3.0.0"
+        }
+    }
+}
+                </code></pre>
+                <!-- The end of issue 02 -->
+                
+                <hr/>
+                <h2>Issue 03 | Wrong Authentication Configuration</h2>
+                <p class="note">
+                    In order to let <strong>GitHub Workflow</strong>  and <strong>Terraform</strong> to work with <strong>Azure Resource Management</strong>, the <code>CLIENT_ID</code>, <code>CLIENT_SECRET_VALUE</code>, <code>TENANT_ID</code> and <code>SUBSCRIPTION_ID</code> will have to be assigned in the workflow files. Therefore, setting up a <strong>Service Principle</strong> with a <strong>AZ Subscription</strong> assigned is the first step of the RG creation. The 2 methods I know of setting up the Service Principle is through <strong>EntraID App Registration</strong> & <strong>Azure Arc</strong>. I have tried the EntraID App registration with an Azure Enterprise Tenant and tried the Azure Arc with my personal Azure free account. Here I am demonstrating the later method:
+                </p>
+                <h3>Error message from GitHub Action</h3>
+                <p class="note">
+                    Go to Azure Portal and find Azure Arc in the Azure services catalogue.
+                </p>
+
+                <img src="../terraform-rg/rg_images/image 19.png" class="enlargeable-image" alt="Image 6">
+            </div>
+            
+            <section id="commentsSection">
+
+            </section>
+        </div>
+
+        <!-- The end of content section -->
+        <div>
+            <hr>
+            <div class="footer">
+                <h3>[Wei Chu].Dev</h3>
+                <p>
+                    <a class = "subpages" href="../../index.html">Home</a>
+                    <a class = "subpages" href="#" target="_blank">About</a>
+                    <a class = "subpages" href="#" target="_blank">Works</a>
+                    <a class = "subpages" href="#" target="_blank">Blogs</a>
+                    <a class = "subpages" href="https://www.linkedin.com/in/wei-chu-2428563a?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B0NJxcN7wTTO%2FFzOhjPc2rg%3D%3D" target="_blank">LinkedIn</a>
+                    <a class = "subpages" id = "email" href="mailto: weikai.chu.91@outlook.com" target="_blank">Email-Me</a>
+                </p>
+                </div>
+            </div>
+    </div>
+</body>
+
+<script src="../works-page.js"></script>
+</html>
