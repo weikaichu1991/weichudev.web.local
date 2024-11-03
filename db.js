@@ -9,6 +9,7 @@ const DB_USERNAME = process.env.DB_USERNAME;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 const mongoURI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster-example.yvtao.mongodb.net/?retryWrites=true&w=majority&appName=cluster-example`;
 
+
 // Connect to MongoDB
 
 const PORT = process.env.PORT || 8000;
