@@ -27,7 +27,7 @@ document.getElementById('menu-icon').addEventListener('click', function() {
 
 // --- the commeenting sections functions ---
 const url = new URL(location.href);
-const APILINK = 'https://localhost:5000/api/v1/comments';
+const APILINK = 'http://localhost:8000/api/v1/comments';
 const main = document.getElementById("commentsSection");
 
 const div_new = document.createElement('div');
