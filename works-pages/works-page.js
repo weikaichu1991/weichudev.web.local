@@ -28,6 +28,7 @@ document.getElementById('menu-icon').addEventListener('click', function() {
 // --- the commeenting sections functions ---
 const url = new URL(location.href);
 const APILINK = 'http://localhost:8000/api/v1/comments';
+const ARTICLE_APILINK = 'http://localhost:8000/api/v1/comments/testing-comment';
 const main = document.getElementById("commentsSection");
 
 const div_new = document.createElement('div');
@@ -49,7 +50,7 @@ div_new.innerHTML = `
                 <input type="text" id="new_comment" value="" placeholder="*Required">
             </p>
             <br>
-            <p><a href="#" onclick="saveComment('new_name', 'new_email', 'new_subject', 'new_comment')" target="_blank">Submit</a>
+            <p><a href="#" onclick="saveComment('new_name', 'new_email', 'new_subject', 'new_comment')">Submit</a>
             </p>
             <p class="terms">* Email address is only for validation purpose which will be required when you need to edit or delete your comment. Therefore, for security reason, it is recommended to provide email address. The address won't be used for any marketing or social communication without your consent.  </p>
             <hr>
@@ -77,7 +78,7 @@ function returnComments(url) {
                                 <p class="comment_subject"><strong>Subject: </strong>${comment.subject}</p>
                                 <p class="comment_text"><strong>Comment: </strong>${comment.comment_text}</p>
                                 <p class="commentator">${comment.name} - ${formattedDate}</p>
-                                <p><a href="#" onclick="showEmailVerification('${comment._id}', 'edit')" class="verifyBtn "target="_blank">Edit | </a><a href = "#" onclick="showEmailVerification('${comment._id}', 'delete')" target="_blank">Delete</a></p>
+                                <p><a href="#" onclick="showEmailVerification('${comment._id}', 'edit')" class="verifyBtn "target="_parent">Edit | </a><a href = "#" onclick="showEmailVerification('${comment._id}', 'delete')" target="_parent">Delete</a></p>
                             </div>
                         </div>
                     </div>
@@ -97,7 +98,7 @@ function showEmailVerification(commentId, action){
         <div id="verifyEmail-${commentId}">
             <p><strong>Verify Email: </strong>
                 <input type= "text" id = "verifyInput-${commentId}" placeholder="Enter your email to verify">
-                <a href="#" onclick="verifyEmail('${commentId}', '${action}')" target="_blank">Verify</a>
+                <a href="#" onclick="verifyEmail('${commentId}', '${action}')" target="_parent">Verify</a>
             </p>
         </div>
     `
@@ -162,6 +163,7 @@ async function saveComment(nameInputId, emailInputId, subjectInputId, commentInp
     const comment_text = document.getElementById(commentInputId).value;
     const name = document.getElementById(nameInputId).value;
     const email = document.getElementById(emailInputId).value;
+    const article = "testing-comment"
 
     const method = id ? 'PUT' : 'POST';
     const url = id ? `${APILINK}/${id}` : APILINK;
@@ -172,7 +174,7 @@ async function saveComment(nameInputId, emailInputId, subjectInputId, commentInp
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, email, subject, comment_text })
+        body: JSON.stringify({ name, email, subject, comment_text, article })
     });
 
     if (response.ok) {
@@ -213,5 +215,5 @@ function formatDate(dateString) {
 
 
 // Load comments when the page loads
-document.addEventListener('DOMContentLoaded', () => returnComments(APILINK));
+document.addEventListener('DOMContentLoaded', () => returnComments(ARTICLE_APILINK));
 // document.addEventListener('DOMContentLoaded', () => returnComments(APILINK));

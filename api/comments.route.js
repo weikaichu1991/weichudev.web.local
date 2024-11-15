@@ -14,6 +14,16 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Get comments of an article.
+router.get("/:article", async (req, res) => {
+  try {
+    const comments = await Comment.find({article:article}).sort({ date: -1 });
+    res.status(200).json(comments);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 // Get single comment
 router.get("/:id", async (req, res) => {
   try {
@@ -33,11 +43,11 @@ router.get("/:id", async (req, res) => {
 
 // Create a new comment
 router.post("/", async (req, res) => {
-  const { name, email, subject, comment_text } = req.body;
-  if (!name || !subject || !comment_text) {
+  const { name, email, subject, comment_text, article } = req.body;
+  if (!name || !subject || !comment_text || !article) {
     return res.status(400).json({ error: "Missing required fields" });
   }
-  const newComment = new Comment({ name, email, subject, comment_text });
+  const newComment = new Comment({ name, email, subject, comment_text, article });
   try {
     const savedComment = await newComment.save();
     res.status(201).json(savedComment);
@@ -49,14 +59,14 @@ router.post("/", async (req, res) => {
 // Update a comment
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, email, subject, comment_text } = req.body;
-  if (!name || !subject || !comment_text) {
+  const { name, email, subject, comment_text, article } = req.body;
+  if (!name || !subject || !comment_text || !article) {
     return res.status(400).json({ error: "Missing required fields" });
   }
   try {
     const updatedComment = await Comment.findByIdAndUpdate(
       id,
-      { name, email, subject, comment_text, date: new Date() },
+      { name, email, subject, comment_text, article, date: new Date() },
       { new: true },
     );
     res.status(200).json(updatedComment);
