@@ -78,7 +78,7 @@ function returnComments(url) {
                                 <p class="comment_subject"><strong>Subject: </strong>${comment.subject}</p>
                                 <p class="comment_text"><strong>Comment: </strong>${comment.comment_text}</p>
                                 <p class="commentator">${comment.name} - ${formattedDate}</p>
-                                <p><a href="#" onclick="showEmailVerification('${comment._id}', 'edit')" class="verifyBtn "target="_parent">Edit | </a><a href = "#" onclick="showEmailVerification('${comment._id}', 'delete')" target="_parent">Delete</a></p>
+                                <p><a href="#" onclick="showEmailVerification('${comment._id}', 'edit')" class="verifyBtn " target = "_parent">Edit | </a><a href = "#" onclick="showEmailVerification('${comment._id}', 'delete')" target = "_parent">Delete</a></p>
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,7 @@ function showEmailVerification(commentId, action){
 
 async function verifyEmail(commentId, action){
     const verifyInput = document.getElementById(`verifyInput-${commentId}`).value.trim().toLowerCase();
-    const url = `${APILINK}/${commentId}`
+    const url = `${APILINK}/id/${commentId}`
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -153,7 +153,7 @@ function editComment(id, name, email, subject, comment_text ) {
         <p><strong>Comment: </strong>
         <input type="text" id="${commentInputId}" value="${comment_text}">
         </p>
-        <p><a href = "#" onclick = "saveComment('${nameInputId}', '${emailInputId}', '${subjectInputId}', '${commentInputId}', '${id}')" target="_blank">Save</a>
+        <p><a href = "#" onclick = "saveComment('${nameInputId}', '${emailInputId}', '${subjectInputId}', '${commentInputId}', '${id}')" target = "_parent">Save</a>
         </p>
     `
 }

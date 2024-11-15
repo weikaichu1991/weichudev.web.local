@@ -16,6 +16,7 @@ router.get("/", async (req, res) => {
 
 // Get comments of an article.
 router.get("/:article", async (req, res) => {
+  const { article } = req.params;
   try {
     const comments = await Comment.find({article:article}).sort({ date: -1 });
     res.status(200).json(comments);
@@ -25,7 +26,7 @@ router.get("/:article", async (req, res) => {
 });
 
 // Get single comment
-router.get("/:id", async (req, res) => {
+router.get("/id/:id", async (req, res) => {
   try {
     const comment = await Comment.findById(req.params.id);
     if (!comment) {
