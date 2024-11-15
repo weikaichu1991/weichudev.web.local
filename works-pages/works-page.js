@@ -126,6 +126,11 @@ async function verifyEmail(commentId, action){
             }
         } else {
             alert('Email verification failed. Please enter the correct email.');
+            const alertMessage = document.createElement('div');
+            alertMessage.className = 'alert-danger';
+            alertMessage.innerText = 'Email verification failed. Please enter the correct email.';
+            const element = document.getElementById(commentId);
+            element.appendChild(alertMessage);
         }
     } else {
         console.error('Error saving comment:', response.statusText);
